@@ -1,0 +1,37 @@
+
+*Home Assignment*
+
+1) From the Groq and Openairouter
+https://console.groq.com/home
+Whisper Large V3 Turbo
+Whisper
+https://developers.openai.com/api/docs/models/all
+GPT-4o mini TTS
+GPT-4o Transcribe
+GPT-5.4
+GPT-5.4 mini
+GPT-5.4 nano
+
+  --List down the Multimodels
+
+2) Take 3 models from each service provider 
+https://openrouter.ai/models
+-----------------------------------------
+Context window | Input output token cost
+-----------------------------------------
+Google:Gemma 4 31B                    | $0.140 - $0.398
+Google: Lyria 3 Clip Preview          | $0.0000 - $41.56
+Google: Gemini 3.1 Flash Lite Preview | $0.190 - $1.50
+
+xAI: Grok 4.20 			      | $0.819 - $6.03
+
+
+3) use the Tokenizer with different prompt and see how the tokens are generated
+https://platform.openai.com/tokenizer
+
+Eg.
+Started my AI test automation tool development with TestLeaf
+
+[38891, 922, 20837, 1746, 37314, 4584, 5269, 483, 4674, 46279]
+
+
