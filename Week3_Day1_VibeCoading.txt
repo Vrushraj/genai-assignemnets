@@ -1,0 +1,115 @@
+import { Page } from '@playwright/test';
+
+/**
+ * Represents the Salesforce login page.
+ */
+export default class SalesforceLoginPage {
+  readonly page: Page;
+  readonly usernameInput = this.page.locator('input[name="username"]');
+  readonly passwordInput = this.page.locator('input[name="pw"]');
+  readonly loginButton = this.page.locator('input[type="submit"]');
+  readonly rememberMeCheckbox = this.page.locator('input[name="rememberUn"]');
+  readonly forgotPasswordLink = this.page.locator('a:has-text("Forgot Your Password?")');
+  readonly useCustomDomainLink = this.page.locator('a:has-text("Use Custom Domain")');
+  readonly customDomainInput = this.page.locator('input[name="mydomain"]');
+  readonly customDomainContinueButton = this.page.locator('button:has-text("Continue")');
+
+  /**
+   * Initializes a new instance of the SalesforceLoginPage class.
+   * @param page The Playwright page object.
+   */
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  /**
+   * Navigates to the Salesforce login page.
+   * @param url The URL of the login page (default is '/').
+   */
+  async goto(url: string = '/'): Promise<void> {
+    await this.page.goto(url);
+    await this.page.waitForLoadState('domcontentloaded');
+  }
+
+  /**
+   * Fills the username field.
+   * @param username The username to fill.
+   */
+  async fillUsername(username: string): Promise<void> {
+    await this.usernameInput.waitFor({ state: 'visible', timeout: 5000 });
+    await this.usernameInput.fill(username);
+  }
+
+  /**
+   * Fills the password field.
+   * @param password The password to fill.
+   */
+  async fillPassword(password: string): Promise<void> {
+    await this.passwordInput.fill(password);
+  }
+
+  /**
+   * Checks the remember me checkbox.
+   */
+  async checkRememberMe(): Promise<void> {
+    await this.rememberMeCheckbox.check();
+  }
+
+  /**
+   * Unchecks the remember me checkbox.
+   */
+  async uncheckRememberMe(): Promise<void> {
+    await this.rememberMeCheckbox.uncheck();
+  }
+
+  /**
+   * Clicks the login button.
+   */
+  async clickLogin(): Promise<void> {
+    await this.loginButton.click();
+  }
+
+  /**
+   * Clicks the forgot password link.
+   */
+  async clickForgotPassword(): Promise<void> {
+    await this.forgotPasswordLink.click();
+  }
+
+  /**
+   * Clicks the use custom domain link.
+   */
+  async clickUseCustomDomain(): Promise<void> {
+    await this.useCustomDomainLink.click();
+  }
+
+  /**
+   * Fills the custom domain input.
+   * @param domain The custom domain to fill.
+   */
+  async fillCustomDomain(domain: string): Promise<void> {
+    await this.customDomainInput.fill(domain);
+  }
+
+  /**
+   * Clicks the custom domain continue button.
+   */
+  async clickCustomDomainContinue(): Promise<void> {
+    await this.customDomainContinueButton.click();
+  }
+
+  /**
+   * Completes the login workflow.
+   * @param username The username to use.
+   * @param password The password to use.
+   * @param rememberMe Whether to check the remember me checkbox.
+   */
+  async login(username: string, password: string, rememberMe: boolean = false): Promise<void> {
+    await this.fillUsername(username);
+    await this.fillPassword(password);
+    if (rememberMe) {
+      await this.checkRememberMe();
+    }
+    await this.clickLogin();
+  }
+}
